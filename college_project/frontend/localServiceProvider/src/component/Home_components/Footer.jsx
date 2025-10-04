@@ -108,7 +108,7 @@ function Footer() {
             underline="none"
             color="text.secondary"
             sx={{
-              "&:hover": { color: "text.primary" },
+              "&:hover": { color: "blue" },
             }}
           >
             <ListItemText
@@ -124,34 +124,34 @@ function Footer() {
   return (
     <Box
       component="footer"
-      sx={{ bgcolor: "grey.50", borderTop: "1px solid", borderColor: "divider" }}
+      sx={{ bgcolor: "white", borderTop: "1px solid", borderColor: "divider" }}
     >
       <Container maxWidth="lg" sx={{ py: { xs: 5, md: 6 } }}>
-        <Grid container spacing={{ xs: 3, md: 4 }}>
-          <Grid item xs={12} md={3}>
+        <Grid container spacing={{ xs: 3, md: 4, lg: 7 }}>
+          <Grid size={{ xs: 12, md: 4, lg: 5 }}>
             <Typography variant="h6" fontWeight={800}>
               LocalFind
             </Typography>
-            <Typography variant="body2" color="text.secondary" mt={1}>
+            <Typography variant="body2" mt={1}>
               Connecting with trusted local service providers in your area.
             </Typography>
           </Grid>
 
-          <Grid item xs={6} md={3}>
+          <Grid size={{ xs: 6, md: 2, lg: 2 }}>
             <Typography variant="subtitle2" fontWeight={700} mb={1}>
               Services
             </Typography>
             {renderLinks(services)}
           </Grid>
 
-          <Grid item xs={6} md={3}>
+          <Grid size={{ xs: 6, md: 2, lg: 2 }}>
             <Typography variant="subtitle2" fontWeight={700} mb={1}>
               Company
             </Typography>
             {renderLinks(company)}
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid size={{ xs: 6, md: 2, lg: 2 }}>
             <Typography variant="subtitle2" fontWeight={700} mb={1}>
               Connect
             </Typography>
@@ -161,7 +161,7 @@ function Footer() {
 
         <Divider sx={{ my: 3 }} />
 
-        <Typography variant="caption" color="text.secondary">
+        <Typography variant="caption"  fontSize="15px" m="auto" display="block" textAlign="center" color="text.secondary">
           © {year} LocalFind. All rights reserved.
         </Typography>
       </Container>

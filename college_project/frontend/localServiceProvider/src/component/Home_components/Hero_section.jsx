@@ -120,8 +120,10 @@ function Hero() {
               width: "100%",
               maxWidth: 900,
               bgcolor: "white",
-              borderRadius: 3,
-              p: 1,
+              borderRadius: 2,
+              // p: 1,
+              paddingX:3,
+              paddingY:1,
               boxShadow: 3,
             }}
           >
@@ -164,6 +166,8 @@ function Hero() {
                   outline: "3px solid rgba(255,255,255,0.6)",
                   outlineOffset: 2,
                 },
+                      background:
+          "linear-gradient(135deg, rgba(76,29,149,1) 0%, rgba(88,28,135,1) 40%, rgba(30,64,175,1) 100%)",
               }}
               onClick={() => {
                 // wire up navigation or search handler

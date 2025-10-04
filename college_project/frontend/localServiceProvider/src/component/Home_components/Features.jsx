@@ -142,13 +142,15 @@ function FeaturedCards() {
 
       <Grid container spacing={3}>
         {featured.map((f) => (
-          <Grid item xs={12} md={4} key={f.title}>
+          <Grid item xs={12} md={4} lg={4} key={f.title}>
             <Card
               sx={{
                 overflow: "hidden",
                 height: "100%",
                 display: "flex",
                 flexDirection: "column",
+                width:'365px',
+                marginTop:'20px'
               }}
               elevation={2}
             >
@@ -188,10 +190,11 @@ function FeaturedCards() {
                   <Chip size="small" color="primary" label={f.tag} />
                 </Stack>
               </CardContent>
-
               <CardActions sx={{ px: 2, pb: 2 }}>
                 <Button
                   fullWidth
+                  // width='50%'
+                  // maxWidth='150px'
                   variant="contained"
                   sx={{
                     "&:focus-visible": {

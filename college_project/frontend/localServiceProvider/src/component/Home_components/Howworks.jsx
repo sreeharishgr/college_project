@@ -142,7 +142,7 @@ function HowItWorks() {
 
       <Grid container spacing={3}>
         {steps.map((s) => (
-          <Grid item xs={12} md={4} key={s.n}>
+          <Grid item xs={12} md={4} lg={4} key={s.n}>
             <Stack
               spacing={2}
               alignItems="center"
@@ -153,6 +153,8 @@ function HowItWorks() {
                 borderColor: "divider",
                 textAlign: "center",
                 height: "100%",
+                width:'365px',
+                boxShadow:3,
               }}
             >
               <Chip
