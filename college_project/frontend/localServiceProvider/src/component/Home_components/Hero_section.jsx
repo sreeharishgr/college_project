@@ -80,6 +80,8 @@
 
 
 import React from "react";
+import { useSelector,useDispatch } from "react-redux";
+import { increment,decrement,incrementByAmount } from "../../redux/slices/counterSlice";
 import {
   Box,
   Button,
@@ -92,6 +94,10 @@ import {
 import { Search as SearchIcon, RoomOutlined } from "@mui/icons-material";
 
 function Hero() {
+  
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+  
   return (
     <Box
       component="header"
@@ -108,6 +114,18 @@ function Hero() {
           <Typography variant="h3" fontWeight={800} lineHeight={1.1}>
             Find Local Services Near You
           </Typography>
+           <div>
+      <h2>{count}</h2>
+      <button onClick={() => dispatch(increment())}>
+        Increment
+      </button>
+      <button onClick={() => dispatch(decrement())}>
+        Decrement
+      </button>
+      <button onClick={() => dispatch(incrementByAmount(5))}>
+        Add 5
+      </button>
+    </div>
 
           <Typography variant="subtitle1" sx={{ opacity: 0.9 }}>
             Connect with trusted local professionals for all your needs
