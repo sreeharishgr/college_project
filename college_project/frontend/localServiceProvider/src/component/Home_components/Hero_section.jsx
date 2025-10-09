@@ -115,7 +115,7 @@ function Hero() {
             Find Local Services Near You
           </Typography>
            <div>
-      <h2>{count}</h2>
+      {/* <h2>{count}</h2>
       <button onClick={() => dispatch(increment())}>
         Increment
       </button>
@@ -124,7 +124,7 @@ function Hero() {
       </button>
       <button onClick={() => dispatch(incrementByAmount(5))}>
         Add 5
-      </button>
+      </button> */}
     </div>
 
           <Typography variant="subtitle1" sx={{ opacity: 0.9 }}>

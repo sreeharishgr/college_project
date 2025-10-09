@@ -4,6 +4,8 @@ import React from 'react'
 import Home from './component/pages/Home.jsx'
 import Appbar from './component/pages/Appbar.jsx'
 import Service from './component/pages/Service.jsx'
+import Contact from './component/pages/Contact.jsx'
+import About from './component/pages/About.jsx'
 import {BrowserRouter, Routes,Route } from 'react-router-dom'
 import RatingHistory from './component/pages/RatingHistory.jsx'
 
@@ -15,6 +17,8 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/service' element={<Service/>}/>
+        <Route path='/Contact' element={<Contact/>}/>
+        <Route path='/About' element={<About/>}/>
         {/* <Route path='/service' element={<RatingHistory/>}/> */}
       </Routes>
     </BrowserRouter>
