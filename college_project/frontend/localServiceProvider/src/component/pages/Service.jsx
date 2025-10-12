@@ -848,7 +848,6 @@ const ServiceCard = ({ service }) => {
           }}
         />
       </Box>
-
       <CardContent sx={{ flexGrow: 1, p: 2.5 }}>
         {/* Header */}
         <Box
@@ -949,7 +948,7 @@ const ServiceCard = ({ service }) => {
               textTransform: 'none',
               fontWeight: 600,
               py: 1,
-              '&:hover': { bgcolor: '#4338ca' },
+              '&:hover': { backgroundColor: '#009973ff',color:'#fff' },
             }}
           >
             View Details
@@ -963,7 +962,8 @@ const ServiceCard = ({ service }) => {
               color: '#4f46e5',
               py: 1,
               px: 3,
-              '&:hover': { borderColor: '#4338ca' },
+              '&:hover': { backgroundColor: '#009973ff',color:'#fff'},
+
             }}
           >
             Contact
@@ -1039,7 +1039,7 @@ const ServiceListingPage = () => {
       rating: 4.9,
       reviewCount: 156,
       description:
-        'Affordable residential plumbing solutions. Kitchen and bathroom installations, pipe repairs, and water heater services.',
+        'Affordable residential plumbing solutions. Kitchen and bathroom installations, pipe repairs, and water heater service and certified technicians.',
       status: 'Active',
       icon: '🔩',
       tags: [

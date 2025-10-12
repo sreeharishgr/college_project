@@ -155,8 +155,6 @@ function HowItWorks() {
   height: "100%",
   width: "365px",
   boxShadow: 3,
-
-  // Smooth transform hover
   transition: "transform 300ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 300ms ease",
   willChange: "transform",
 
@@ -165,7 +163,6 @@ function HowItWorks() {
     boxShadow: 6,
   },
 }}
-
             >
               <Chip
                 label={s.n}
@@ -173,7 +170,6 @@ function HowItWorks() {
                 aria-label={`Step ${s.n}`}
                 sx={{ borderRadius: "50%", width: 40, height: 40 }}
               />
-
               <Box
                 sx={{
                   width: 56,
