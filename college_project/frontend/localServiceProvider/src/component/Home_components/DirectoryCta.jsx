@@ -57,7 +57,7 @@ function DirectoryCta() {
                   theme.palette.mode === "light"
                     // ? "rgba(255,255,255,0.06)"
                     // ? "rgba(13, 179, 135, 0.49)"
-                      ?"#a78bfa"
+                      ?"#009973ff"
                       : "action.hover",
 
                 color:'white'

@@ -1,0 +1,25 @@
+/* container background (behind slides) */
+.swiper {
+  background: #0b1020;
+}
+
+/* each slide background */
+.swiper-slide {
+  background: #1f2937;
+}
+
+/* optional: per-slide classes */
+.swiper-slide.slide-1 { background: #643ca3; }
+.swiper-slide.slide-2 { background: #e38364; }
+.swiper-slide.slide-3 { background: #64e3c1; }
+
+
+.hero-swiper {
+  background: rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding-bottom: 24px;
+}
+
+.hero-swiper {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}

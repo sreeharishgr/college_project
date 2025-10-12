@@ -1,11 +1,32 @@
-// import Box from "@mui/material/Box";
-// import Button from "@mui/material/Button";
-// import Container from "@mui/material/Container";    
+
+// import React from "react";
+// import { useSelector,useDispatch } from "react-redux";
+// import { increment,decrement,incrementByAmount } from "../../redux/slices/counterSlice";
+// import {
+//   Box,
+//   Button,
+//   Container,
+//   Stack,
+//   TextField,
+//   Typography,
+//   InputAdornment,
+// } from "@mui/material";
+// import { Search as SearchIcon, RoomOutlined } from "@mui/icons-material";
+// import Swiper from 'swiper';
+// import 'swiper/css';
 
 
 // function Hero() {
+  
+//   const count = useSelector((state) => state.counter.value);
+//   const dispatch = useDispatch();
+//   const swiper = new Swiper(...),
+
+  
 //   return (
 //     <Box
+//       component="header"
+//       role="banner"
 //       sx={{
 //         py: { xs: 8, md: 12 },
 //         background:
@@ -18,6 +39,19 @@
 //           <Typography variant="h3" fontWeight={800} lineHeight={1.1}>
 //             Find Local Services Near You
 //           </Typography>
+//            <div>
+//       {/* <h2>{count}</h2>
+//       <button onClick={() => dispatch(increment())}>
+//         Increment
+//       </button>
+//       <button onClick={() => dispatch(decrement())}>
+//         Decrement
+//       </button>
+//       <button onClick={() => dispatch(incrementByAmount(5))}>
+//         Add 5
+//       </button> */}
+//     </div>
+
 //           <Typography variant="subtitle1" sx={{ opacity: 0.9 }}>
 //             Connect with trusted local professionals for all your needs
 //           </Typography>
@@ -29,14 +63,18 @@
 //               width: "100%",
 //               maxWidth: 900,
 //               bgcolor: "white",
-//               borderRadius: 3,
-//               p: 1,
+//               borderRadius: 2,
+//               // p: 1,
+//               paddingX:3,
+//               paddingY:1,
 //               boxShadow: 3,
 //             }}
 //           >
 //             <TextField
 //               fullWidth
 //               placeholder="What service do you need?"
+//               inputProps={{ "aria-label": "Service" }}
+//               autoComplete="off"
 //               InputProps={{
 //                 startAdornment: (
 //                   <InputAdornment position="start">
@@ -45,9 +83,12 @@
 //                 ),
 //               }}
 //             />
+
 //             <TextField
 //               fullWidth
 //               placeholder="Enter your location"
+//               inputProps={{ "aria-label": "Location", inputMode: "text" }}
+//               autoComplete="postal-code"
 //               InputProps={{
 //                 startAdornment: (
 //                   <InputAdornment position="start">
@@ -56,6 +97,7 @@
 //                 ),
 //               }}
 //             />
+
 //             <Button
 //               variant="contained"
 //               size="large"
@@ -63,6 +105,15 @@
 //                 px: 4,
 //                 whiteSpace: "nowrap",
 //                 alignSelf: { xs: "stretch", sm: "center" },
+//                 "&:focus-visible": {
+//                   outline: "3px solid rgba(255,255,255,0.6)",
+//                   outlineOffset: 2,
+//                 },
+//                       background:
+//           "linear-gradient(135deg, rgba(76,29,149,1) 0%, rgba(88,28,135,1) 40%, rgba(30,64,175,1) 100%)",
+//               }}
+//               onClick={() => {
+//                 // wire up navigation or search handler
 //               }}
 //             >
 //               Search Now
@@ -77,11 +128,9 @@
 // export default Hero;
 
 
-
-
 import React from "react";
-import { useSelector,useDispatch } from "react-redux";
-import { increment,decrement,incrementByAmount } from "../../redux/slices/counterSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { increment, decrement, incrementByAmount } from "../../redux/slices/counterSlice";
 import {
   Box,
   Button,
@@ -90,14 +139,22 @@ import {
   TextField,
   Typography,
   InputAdornment,
+  IconButton,
 } from "@mui/material";
 import { Search as SearchIcon, RoomOutlined } from "@mui/icons-material";
 
+// Swiper React
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+// Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 function Hero() {
-  
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
-  
+
   return (
     <Box
       component="header"
@@ -114,18 +171,6 @@ function Hero() {
           <Typography variant="h3" fontWeight={800} lineHeight={1.1}>
             Find Local Services Near You
           </Typography>
-           <div>
-      {/* <h2>{count}</h2>
-      <button onClick={() => dispatch(increment())}>
-        Increment
-      </button>
-      <button onClick={() => dispatch(decrement())}>
-        Decrement
-      </button>
-      <button onClick={() => dispatch(incrementByAmount(5))}>
-        Add 5
-      </button> */}
-    </div>
 
           <Typography variant="subtitle1" sx={{ opacity: 0.9 }}>
             Connect with trusted local professionals for all your needs
@@ -139,9 +184,8 @@ function Hero() {
               maxWidth: 900,
               bgcolor: "white",
               borderRadius: 2,
-              // p: 1,
-              paddingX:3,
-              paddingY:1,
+              paddingX: 3,
+              paddingY: 1,
               boxShadow: 3,
             }}
           >
@@ -184,8 +228,13 @@ function Hero() {
                   outline: "3px solid rgba(255,255,255,0.6)",
                   outlineOffset: 2,
                 },
-                      background:
-          "linear-gradient(135deg, rgba(76,29,149,1) 0%, rgba(88,28,135,1) 40%, rgba(30,64,175,1) 100%)",
+                 transition: "background 0.4s ease, transform 0.2s ease",
+                  "&:hover": {
+                    background:'#009973ff',
+                    transform: "scale(1.03)"
+                  },    
+                background:
+                  "linear-gradient(135deg, rgba(76,29,149,1) 0%, rgba(88,28,135,1) 40%, rgba(30,64,175,1) 100%)",
               }}
               onClick={() => {
                 // wire up navigation or search handler

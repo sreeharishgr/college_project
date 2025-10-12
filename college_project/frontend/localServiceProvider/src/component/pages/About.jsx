@@ -5,6 +5,7 @@ import {
   Typography,
   Grid,
   Link,
+  CssBaseline,
 } from '@mui/material';
 import { styled, keyframes } from '@mui/material/styles';
 import {
@@ -154,7 +155,7 @@ const MissionContent = styled(Box)`
 `;
 
 const MissionParagraph = styled(Typography)`
-  font-size: 1.2rem;
+  font-size: 1rem;
   line-height: 1.8;
   color: #555;
   margin-bottom: 2rem;
@@ -211,6 +212,8 @@ const FeatureTitle = styled(Typography)`
 const FeatureDescription = styled(Typography)`
   color: #666;
   line-height: 1.6;
+  font-size: 0.8rem;
+
 `;
 
 const TeamGrid = styled(Grid)`
@@ -224,6 +227,7 @@ const TeamMember = styled(Box)`
   background: white;
   padding: 2rem;
   border-radius: 20px;
+  height:350px;
   box-shadow: 0 8px 30px rgba(0,0,0,0.1);
   text-align: center;
   transition: transform 0.3s ease;
@@ -273,7 +277,7 @@ const MemberRole = styled(Typography)`
 const MemberBio = styled(Typography)`
   color: #666;
   line-height: 1.6;
-  font-size: 0.95rem;
+  font-size: 0.9  rem;
 `;
 
 const ContactSection = styled(Box)`
@@ -302,6 +306,8 @@ const ContactGrid = styled(Grid)`
 
 const ContactItem = styled(Box)`
   padding: 2rem;
+  height: 240px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
   background: #f8f9ff;
   border-radius: 16px;
   border: 2px solid #e6e9ff;
@@ -311,6 +317,14 @@ const ContactItem = styled(Box)`
     border-color: #667eea;
     background: #f0f2ff;
   }
+  transform: translateY(20px);
+  &.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  &:hover {
+    transform: translateY(-5px) scale(1.00);
+  }   
 `;
 
 const ContactIcon = styled(Box)`
@@ -320,7 +334,7 @@ const ContactIcon = styled(Box)`
 `;
 
 const ContactTitle = styled(Typography)`
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: #2c3e50;
@@ -328,7 +342,7 @@ const ContactTitle = styled(Typography)`
 
 const ContactMain = styled(Typography)`
   color: #667eea;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
   text-decoration: none;
@@ -509,7 +523,7 @@ const AboutPage = () => {
       initials: 'JP',
       name: 'James Parker',
       role: 'Lead Developer',
-      bio: 'James leads our development team in building innovative features that make ServiceFinder the best platform for connecting with local services. His expertise in mobile and web development drives our technical excellence.',
+      bio: 'James leads our development team in building innovative features that make ServiceFinder the best platform for connecting with local services.',
     },
   ];
 
@@ -533,7 +547,7 @@ const AboutPage = () => {
     {
       icon: <LocationIcon />,
       title: 'Visit Us',
-      main: '123 Innovation Drive\nSan Francisco, CA 94105',
+      main: 'Nagercoil,Tamil Nadu',
       sub: 'Open office hours by appointment',
       type: 'address',
     },
@@ -549,6 +563,7 @@ const AboutPage = () => {
   return (
     <>
       <GlobalStyles />
+      <CssBaseline />
       <Header>
         <StyledContainer>
           <HeaderTitle variant="h1">About ServiceFinder</HeaderTitle>
@@ -557,7 +572,6 @@ const AboutPage = () => {
           </HeaderSubtitle>
         </StyledContainer>
       </Header>
-
       <MainContent>
         <StyledContainer>
           <Section ref={(el) => (sectionRefs.current[0] = el)}>
@@ -579,7 +593,7 @@ const AboutPage = () => {
             <SectionTitle variant="h2">What We Offer</SectionTitle>
             <FeaturesGrid container spacing={2}>
               {features.map((feature, index) => (
-                <Grid item xs={12} sm={6} md={4} key={index}>
+                <Grid size={{ xs:12,sm:6,md:6,lg:6}} key={index}>
                   <FeatureCard ref={(el) => (featureRefs.current[index] = el)}>
                     <FeatureIcon>{feature.icon}</FeatureIcon>
                     <FeatureTitle variant="h3">{feature.title}</FeatureTitle>
@@ -589,12 +603,11 @@ const AboutPage = () => {
               ))}
             </FeaturesGrid>
           </Section>
-
           <Section ref={(el) => (sectionRefs.current[2] = el)}>
             <SectionTitle variant="h2">Meet Our Team</SectionTitle>
             <TeamGrid container spacing={2}>
               {teamMembers.map((member, index) => (
-                <Grid item xs={12} sm={6} md={4} key={index}>
+                <Grid size={{ xs:12,sm:6,md:6,lg:6}} key={index}>
                   <TeamMember ref={(el) => (teamRefs.current[index] = el)}>
                     <MemberPhoto>{member.initials}</MemberPhoto>
                     <MemberName variant="h3">{member.name}</MemberName>
@@ -614,7 +627,7 @@ const AboutPage = () => {
               </ContactParagraph>
               <ContactGrid container spacing={2}>
                 {contactInfo.map((contact, index) => (
-                  <Grid item xs={12} sm={6} md={3} key={index}>
+                  <Grid size={{xs:12,sm:12,md:6,lg:3}} key={index}>
                     <ContactItem onClick={(e) => handleContactClick(contact.type, contact.value, e)}>
                       <ContactIcon>{contact.icon}</ContactIcon>
                       <ContactTitle variant="h3">{contact.title}</ContactTitle>

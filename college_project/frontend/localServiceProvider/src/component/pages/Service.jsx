@@ -796,7 +796,8 @@ import {
   Chip,
   Rating,
   Pagination,
-  Grid
+  Grid,
+  CssBaseline
 } from '@mui/material';
 import {
   LocationOn,
@@ -1135,6 +1136,7 @@ const ServiceListingPage = () => {
 
   return (
     <Box sx={{ bgcolor: '#f3f4f6', minHeight: '100vh' }}>
+      <CssBaseline />
       <Container maxWidth="xl" sx={{ py: 4 }}>
         <Grid container spacing={3} sx={{display:{xs:'flex',md:'flex'},justifyContent:{xs:'center',md:'center'}}}>
           {/* Filters Sidebar */}

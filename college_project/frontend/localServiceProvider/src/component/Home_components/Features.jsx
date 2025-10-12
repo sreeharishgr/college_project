@@ -201,6 +201,11 @@ function FeaturedCards() {
                       outline: "3px solid rgba(79,70,229,.35)",
                       outlineOffset: 2,
                     },
+                     transition: "background 0.4s ease, transform 0.2s ease",
+                  "&:hover": {
+                    background:'#009973ff',
+                    transform: "scale(1.03)"
+                  },  
                   }}
                   onClick={() => {
                     // hook up to contact action or route

@@ -16,7 +16,8 @@ import {
   Link,
   CircularProgress,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  CssBaseline
 } from '@mui/material';
 import {
   Send as SendIcon,
@@ -224,9 +225,10 @@ const ContactSupport = () => {
     },
   ];
 
-  return (
+  return (    
     <Box sx={{ bgcolor: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)', }}>
       {/* Header */}
+      <CssBaseline />
       <HeaderBox>
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
           <HeaderIcon>💬</HeaderIcon>

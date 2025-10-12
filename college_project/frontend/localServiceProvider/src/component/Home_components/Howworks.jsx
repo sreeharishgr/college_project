@@ -146,16 +146,26 @@ function HowItWorks() {
             <Stack
               spacing={2}
               alignItems="center"
-              sx={{
-                p: 3,
-                borderRadius: 2,
-                border: "1px solid",
-                borderColor: "divider",
-                textAlign: "center",
-                height: "100%",
-                width:'365px',
-                boxShadow:3,
-              }}
+            sx={{
+  p: 3,
+  borderRadius: 2,
+  border: "1px solid",
+  borderColor: "divider",
+  textAlign: "center",
+  height: "100%",
+  width: "365px",
+  boxShadow: 3,
+
+  // Smooth transform hover
+  transition: "transform 300ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 300ms ease",
+  willChange: "transform",
+
+  "&:hover": {
+    transform: "translateY(-15px)",
+    boxShadow: 6,
+  },
+}}
+
             >
               <Chip
                 label={s.n}

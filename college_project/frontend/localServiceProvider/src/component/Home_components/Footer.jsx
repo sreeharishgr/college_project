@@ -128,7 +128,7 @@ function Footer() {
     >
       <Container maxWidth='xl'  sx={{ py: { xs: 5, md: 6 }}}>
         <Grid container spacing={{ xs: 3, md: 4, lg:2 }} sx={{margin:'0 auto',display:'flex',justifyContent:'center'}}>
-          <Grid size={{ xs: 12, md: 4, lg: 6}}>
+          <Grid size={{ xs: 12,sm:6,md:4,lg: 6}}>
             <Typography variant="h6" fontWeight={800}>
               LocalFind
             </Typography>
