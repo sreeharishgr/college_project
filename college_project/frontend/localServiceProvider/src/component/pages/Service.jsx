@@ -817,7 +817,7 @@ const ServiceCard = ({ service }) => {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        width:'400px',
+        width:'auto',
         borderRadius: 2,
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
       }}
@@ -862,7 +862,7 @@ const ServiceCard = ({ service }) => {
             variant="h6"
             sx={{
               fontWeight: 700,
-              fontSize: 18,
+              fontSize: { xs:16,sm:15,md: 18},
               color: '#1a1a1a',
             }}
           >
@@ -872,7 +872,7 @@ const ServiceCard = ({ service }) => {
             sx={{
               color: '#10b981',
               fontWeight: 700,
-              fontSize: 16,
+              fontSize:{ xs:14,sm:15,md:16},
             }}
           >
             {service.price}
@@ -883,7 +883,7 @@ const ServiceCard = ({ service }) => {
         <Typography
           sx={{
             color: '#9ca3af',
-            fontSize: 13,
+            fontSize: { xs:10,sm:14,md: 13 },
             mb: 1.5,
           }}
         >
@@ -899,7 +899,7 @@ const ServiceCard = ({ service }) => {
             size="small"
             sx={{ mr: 1 }}
           />
-          <Typography sx={{ fontSize: 13, color: '#666' }}>
+          <Typography sx={{ fontSize:{xs:10,sm:13,md:10}, color: '#666' }}>
             {service.rating} ({service.reviewCount} reviews)
           </Typography>
         </Box>
@@ -907,7 +907,7 @@ const ServiceCard = ({ service }) => {
         {/* Description */}
         <Typography
           sx={{
-            fontSize: 13,
+            fontSize:{ xs: 12,sm:13,md: 13 },
             color: '#666',
             lineHeight: 1.6,
             mb: 2,
@@ -1136,14 +1136,13 @@ const ServiceListingPage = () => {
   return (
     <Box sx={{ bgcolor: '#f3f4f6', minHeight: '100vh' }}>
       <Container maxWidth="xl" sx={{ py: 4 }}>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} sx={{display:{xs:'flex',md:'flex'},justifyContent:{xs:'center',md:'center'}}}>
           {/* Filters Sidebar */}
-          <Grid size={{xs:3 ,md:3, lg:2.5}}>
+          <Grid size={{xs:10,sm:5,md:4,lg:2.5,xl:3}}>
             <Card sx={{ p: 3, borderRadius: 2 }}>
               <Typography variant="h6" sx={{ mb: 3, fontWeight: 700 }}>
                 Filters
               </Typography>
-
               {/* Service Category */}
               <Typography sx={{ mb: 1, fontWeight: 600, fontSize: 14 }}>
                 Service Category
@@ -1226,13 +1225,13 @@ const ServiceListingPage = () => {
             </Card>
           </Grid>
           {/* Service Listings */}
-            <Grid sx={{backgroundColor:'white', borderRadius:2, padding:3, boxShadow: '0 2px 8px rgba(0,0,0,0.1)',margin:'0 auto'}} size={{xs:9 ,md:9, lg:7.5}}>
+            <Grid sx={{backgroundColor:'white', borderRadius:2, padding:3, boxShadow: '0 2px 8px rgba(0,0,0,0.1)',margin:'0 auto'}} size={{xs:10,sm:7,md:8, lg:7.5}}>
             <Typography sx={{ mb: 3, fontSize: 14, color: '#666' }}>
               Showing 6 results for "plumbing" in Nagercoil
             </Typography>
             <Grid container spacing={3}>
               {services.map((service, index) => (
-                <Grid size={{xs:12,md:6,lg:6}} key={index}>
+                <Grid size={{xs:6,sm:12,md:6,lg:6}} key={index}>
                   <ServiceCard service={service} />
                 </Grid>
               ))}
@@ -1257,105 +1256,6 @@ const ServiceListingPage = () => {
         </Grid>
       </Container>
       {/* Footer */}
-      <Box
-        sx={{
-          bgcolor: '#1f2937',
-          color: '#9ca3af',
-          py: 6,
-          mt: 6,
-        }}
-      >
-        <Container maxWidth="xl">
-          <Grid container spacing={4}>
-            <Grid xs={12} md={3}>
-              <Typography
-                variant="h6"
-                sx={{ color: '#fff', fontWeight: 700, mb: 2 }}
-              >
-                LocalFind
-              </Typography>
-              <Typography sx={{ fontSize: 14 }}>
-                Connecting you with trusted local service providers in your area.
-              </Typography>
-            </Grid>
-            <Grid xs={12} md={3}>
-              <Typography
-                sx={{ color: '#fff', fontWeight: 600, mb: 2, fontSize: 15 }}
-              >
-                Services
-              </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Typography sx={{ fontSize: 14, cursor: 'pointer' }}>
-                  Home Repair
-                </Typography>
-                <Typography sx={{ fontSize: 14, cursor: 'pointer' }}>
-                  Cleaning
-                </Typography>
-                <Typography sx={{ fontSize: 14, cursor: 'pointer' }}>
-                  Landscaping
-                </Typography>
-                <Typography sx={{ fontSize: 14, cursor: 'pointer' }}>
-                  Electrical
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid xs={12} md={3}>
-              <Typography
-                sx={{ color: '#fff', fontWeight: 600, mb: 2, fontSize: 15 }}
-              >
-                Company
-              </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Typography sx={{ fontSize: 14, cursor: 'pointer' }}>
-                  About Us
-                </Typography>
-                <Typography sx={{ fontSize: 14, cursor: 'pointer' }}>
-                  Contact
-                </Typography>
-                <Typography sx={{ fontSize: 14, cursor: 'pointer' }}>
-                  Privacy Policy
-                </Typography>
-                <Typography sx={{ fontSize: 14, cursor: 'pointer' }}>
-                  Terms of Service
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid xs={12} md={3}>
-              <Typography
-                sx={{ color: '#fff', fontWeight: 600, mb: 2, fontSize: 15 }}
-              >
-                Connect
-              </Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Typography sx={{ fontSize: 14, cursor: 'pointer' }}>
-                  Facebook
-                </Typography>
-                <Typography sx={{ fontSize: 14, cursor: 'pointer' }}>
-                  Twitter
-                </Typography>
-                <Typography sx={{ fontSize: 14, cursor: 'pointer' }}>
-                  Instagram
-                </Typography>
-                <Typography sx={{ fontSize: 14, cursor: 'pointer' }}>
-                  LinkedIn
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
-          <Box
-            sx={{
-              textAlign: 'center',
-              mt: 4,
-              pt: 4,
-              borderTop: '1px solid #374151',
-            }}
-          >
-            <Typography sx={{ fontSize: 13 }}>
-              © 2024 LocalFind. All rights reserved.
-            </Typography>
-          </Box>
-        </Container>
-      </Box>
     </Box>
   );
 };

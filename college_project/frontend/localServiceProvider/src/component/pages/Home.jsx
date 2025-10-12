@@ -27,7 +27,7 @@ export default function App() {
         <HowItWorks />
         <CtaBand />
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </ThemeProvider>
   );
 }

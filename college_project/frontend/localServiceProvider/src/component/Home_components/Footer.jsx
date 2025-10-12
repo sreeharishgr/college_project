@@ -126,9 +126,9 @@ function Footer() {
       component="footer"
       sx={{ bgcolor: "white", borderTop: "1px solid", borderColor: "divider" }}
     >
-      <Container maxWidth="lg" sx={{ py: { xs: 5, md: 6 } }}>
-        <Grid container spacing={{ xs: 3, md: 4, lg: 7 }}>
-          <Grid size={{ xs: 12, md: 4, lg: 5 }}>
+      <Container maxWidth='xl'  sx={{ py: { xs: 5, md: 6 }}}>
+        <Grid container spacing={{ xs: 3, md: 4, lg:2 }} sx={{margin:'0 auto',display:'flex',justifyContent:'center'}}>
+          <Grid size={{ xs: 12, md: 4, lg: 6}}>
             <Typography variant="h6" fontWeight={800}>
               LocalFind
             </Typography>
@@ -136,22 +136,21 @@ function Footer() {
               Connecting with trusted local service providers in your area.
             </Typography>
           </Grid>
-
-          <Grid size={{ xs: 6, md: 2, lg: 2 }}>
+          <Grid size={{ xs: 6, md: 2, lg: 1.5 }}>
             <Typography variant="subtitle2" fontWeight={700} mb={1}>
               Services
             </Typography>
             {renderLinks(services)}
           </Grid>
 
-          <Grid size={{ xs: 6, md: 2, lg: 2 }}>
+          <Grid size={{ xs: 6, md: 2, lg: 1.5 }}>
             <Typography variant="subtitle2" fontWeight={700} mb={1}>
               Company
             </Typography>
             {renderLinks(company)}
           </Grid>
 
-          <Grid size={{ xs: 6, md: 2, lg: 2 }}>
+          <Grid size={{ xs: 6, md: 2, lg: 1.5 }}>
             <Typography variant="subtitle2" fontWeight={700} mb={1}>
               Connect
             </Typography>

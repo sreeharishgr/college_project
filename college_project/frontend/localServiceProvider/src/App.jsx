@@ -8,6 +8,7 @@ import Contact from './component/pages/Contact.jsx'
 import About from './component/pages/About.jsx'
 import {BrowserRouter, Routes,Route } from 'react-router-dom'
 import RatingHistory from './component/pages/RatingHistory.jsx'
+import Footer from './component/Home_components/Footer.jsx'
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path='/About' element={<About/>}/>
         {/* <Route path='/service' element={<RatingHistory/>}/> */}
       </Routes>
+      <Footer/>
     </BrowserRouter>
     </>
   )

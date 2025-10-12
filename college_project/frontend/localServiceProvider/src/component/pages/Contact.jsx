@@ -90,7 +90,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
     background: 'linear-gradient(135deg, #4a90e2 0%, #357abd 100%)',
   },
   '&:hover': {
-    transform: 'translateY(-5px)',
+    transform: 'translateY(-10px)',
     boxShadow: '0 15px 35px rgba(74, 144, 226, 0.15)',
   },
 }));
@@ -112,7 +112,8 @@ const SubmitButton = styled(Button)(({ theme }) => ({
   boxShadow: '0 4px 15px rgba(74, 144, 226, 0.3)',
   transition: 'all 0.3s ease',
   '&:hover': {
-    background: 'linear-gradient(135deg, #357abd 0%, #4a90e2 100%)',
+    background: 'green',
+    transition: 'all 0.10s ease',
     transform: 'translateY(-2px)',
     boxShadow: '0 6px 20px rgba(74, 144, 226, 0.4)',
   },
@@ -347,7 +348,6 @@ const ContactSupport = () => {
               </CardContent>
             </StyledCard>
           </Grid>
-
           {/* Contact Information */}
           <Grid size={{xs:12,md:6,lg:6}}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
@@ -451,7 +451,7 @@ const ContactSupport = () => {
               </StyledCard>
 
               {/* FAQ Section */}
-              <StyledCard>
+              <StyledCard >
                 <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
                   <Box sx={{ textAlign: 'center', mb: 3 }}>
                     <Typography variant="h5" component="h3" sx={{ fontWeight: 600, color: '#2c3e50' }}>
