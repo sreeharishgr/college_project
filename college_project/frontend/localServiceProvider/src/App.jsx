@@ -7,8 +7,10 @@ import Service from './component/pages/Service.jsx'
 import Contact from './component/pages/Contact.jsx'
 import About from './component/pages/About.jsx'
 import {BrowserRouter, Routes,Route } from 'react-router-dom'
-import RatingHistory from './component/pages/RatingHistory.jsx'
+// import RatingHistory from './component/pages/RatingHistory.jsx'
 import Footer from './component/Home_components/Footer.jsx'
+// import { Dashboard } from '@mui/icons-material'
+import Admindashboard from './component/pages/Admin_dashboard.jsx'
 
 const App = () => {
   return (
@@ -21,6 +23,7 @@ const App = () => {
         <Route path='/Contact' element={<Contact/>}/>
         <Route path='/About' element={<About/>}/>
         {/* <Route path='/service' element={<RatingHistory/>}/> */}
+        <Route path='/AdminDashboard' element={<Admindashboard/>}/>
       </Routes>
       <Footer/>
     </BrowserRouter>

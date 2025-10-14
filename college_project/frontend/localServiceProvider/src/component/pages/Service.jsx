@@ -11,7 +11,7 @@
 //     id: 1,
 //     name: "Elite Plumbing Services",
 //     category: "Plumbing & Repairs",
-//     price: "$75/hr",
+    // price: "$75/hr",
 //     rating: "4.8 (127 reviews)",
 //     description: "Professional plumbing services including emergency repairs, installations, and maintenance. Licensed and insured with 15+ years experience.",
 //     distance: "2.3 miles away",
@@ -984,7 +984,7 @@ const ServiceListingPage = () => {
   const services = [
     {
       name: 'Elite Plumbing Services',
-      price: '$75/hr',
+      // price: '$75/hr',
       category: 'Name',
       rating: 4.8,
       reviewCount: 127,
@@ -1009,7 +1009,7 @@ const ServiceListingPage = () => {
     },
     {
       name: 'QuickFix Plumbing',
-      price: '$85/hr',
+      // price: '$85/hr',
       category: 'Emergency Plumbing',
       rating: 4.6,
       reviewCount: 94,
@@ -1034,7 +1034,7 @@ const ServiceListingPage = () => {
     },
     {
       name: 'Reliable Pipes Co.',
-      price: '$65/hr',
+      // price: '$65/hr',
       category: 'Residential Plumbing',
       rating: 4.9,
       reviewCount: 156,
@@ -1059,7 +1059,7 @@ const ServiceListingPage = () => {
     },
     {
       name: 'Metro Plumbing Solutions',
-      price: '$90/hr',
+      // price: '$90/hr',
       category: 'Commercial & Residential',
       rating: 4.5,
       reviewCount: 203,
@@ -1084,7 +1084,7 @@ const ServiceListingPage = () => {
     },
     {
       name: 'Drain Masters NYC',
-      price: '$95/hr',
+      // price: '$95/hr',
       category: 'Drain & Sewer Services',
       rating: 4.7,
       reviewCount: 88,
@@ -1109,7 +1109,7 @@ const ServiceListingPage = () => {
     },
     {
       name: 'Family First Plumbing',
-      price: '$70/hr',
+      // price: '$70/hr',
       category: 'Family-Owned Business',
       rating: 4.8,
       reviewCount: 142,

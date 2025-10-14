@@ -189,7 +189,7 @@ import { PersonOutline, ShoppingCartOutlined } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 
-const defaultNav = ["Home", "Services", "About", "Contact"];
+const defaultNav = ["Home", "Services", "About", "Contact", "AdminDashboard"];
 
 function Header({ navItems = defaultNav }) {
   const navigate = useNavigate();
@@ -203,6 +203,7 @@ function Header({ navItems = defaultNav }) {
     Services: "/service",
     About: "/about",
     Contact: "/contact",
+    AdminDashboard: "/AdminDashboard",
   };
 
   const handleClick = (item) => {
