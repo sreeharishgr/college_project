@@ -114,7 +114,7 @@ const sideNav = [
 const metrics = [
   {
     label: "Active Users",
-    value: "278",
+    value: "275",
     icon: <PersonOutlineIcon />,
   },
   {
