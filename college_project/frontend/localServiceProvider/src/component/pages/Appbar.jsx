@@ -199,12 +199,13 @@ function Header({ navItems = defaultNav }) {
   const toggleMobile = (open) => () => setMobileOpen(open);
 
   const routeMap = {
-    Home: "/",
+    Home: "/home",
     Services: "/service",
     About: "/about",
     Contact: "/contact",
     AdminDashboard: "/AdminDashboard",
-    Login: "/userlogin",
+    // Login: "/",
+    Login: "/",
   };
 
   const handleClick = (item) => {

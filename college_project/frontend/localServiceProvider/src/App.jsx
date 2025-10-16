@@ -12,22 +12,24 @@ import {BrowserRouter, Routes,Route } from 'react-router-dom'
 import Footer from './component/Home_components/Footer.jsx'
 // import { Dashboard } from '@mui/icons-material'
 import Admindashboard from './component/pages/Admin_dashboard.jsx'
+import Userprovider from './auth/Userprovider.jsx'
 
 const App = () => {
   return (
     <>
     <BrowserRouter>
-      <Appbar/>
+      {/* <Appbar/> */}
       <Routes>
-        <Route path='/' element={<Home/>}/>
+        <Route path='/home' element={<Home/>}/>
         <Route path='/service' element={<Service/>}/>
         <Route path='/Contact' element={<Contact/>}/>
         <Route path='/About' element={<About/>}/>
         {/* <Route path='/service' element={<RatingHistory/>}/> */}
         <Route path='/AdminDashboard' element={<Admindashboard/>}/>
-        <Route path='/userlogin' element={<Userlogin/>}/>
+        {/* <Route path='/' element={<Userlogin/>}/> */}
+        <Route path='/' element={<Userprovider/>}/>
       </Routes>
-      <Footer/>
+      {/* <Footer/> */}
     </BrowserRouter>
     </>
   )
