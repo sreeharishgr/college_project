@@ -35,10 +35,12 @@
 import React from 'react'
 import Admin_dashboard from './pages/admin/Admin_dashboard.jsx'
 import Userlogin from './pages/user/Userlogin.jsx'
+import Userprovider from './pages/provider/Userprovider.jsx'
 const App = () => {
   return (
     // <Admin_dashboard/>
-    <Userlogin/>
+    // <Userlogin/>
+    <Userprovider/>
   )
 }
 

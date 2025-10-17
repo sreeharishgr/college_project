@@ -125,34 +125,38 @@ function LoginCard() {
     >
         <Paper
           variant="outlined"
+          elevation={6}
           sx={{
-            width: "100%",
+            // width: "100%",
             maxWidth: 520,
             p: { xs: 3, sm: 4,md:5,lg:10},
             borderRadius: 2,
             m: "0 auto",
-            height: "auto",
+            width:"450px",
+            height: "450px",
+            boxShadow: '0px 6px 15px rgba(0, 0, 0, 0.64)',
+            display:"flex",
             // display: "flex",
-            // flexDirection: "column",
+            flexDirection: "column",
+            justifyContent: "space-between",
             // height:"auto",
             // justifyContent: "center",
           }}
         >
-        <Box sx={{ textAlign: "center", mb: 2 }}>
-          <Typography variant="h6" sx={{ fontWeight: 700 }}>
+        <Box sx={{ textAlign: "center", }}>
+          <Typography variant="h6" sx={{ fontWeight: 700,fontSize:'30px' }}>
             User Portal
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" sx={{fontSize:'15px'}}>
             Access your account
           </Typography>
         </Box>
-
         <Box component="form" noValidate autoComplete="off">
           <Grid container spacing={2}>
             <Grid size={{xs:12,sm:12,md:12,lg:12}}>
               <TextField
                 fullWidth
-                size="small"
+                size="large"
                 placeholder="you@example.com"
                 label="Email address"
                 type="email"
@@ -164,7 +168,7 @@ function LoginCard() {
             <Grid size={{xs:12,sm:12,md:12,lg:12}}>
               <TextField
                 fullWidth
-                size="small"
+                size="large"
                 label="Password"
                 type={showPwd ? "text" : "password"}
                 placeholder="••••••••"
@@ -187,9 +191,9 @@ function LoginCard() {
             </Grid>
             <Grid size={{xs:12,sm:12,md:12,lg:12}}>
               <Button
-                fullWidth
+                // fullWidth
                 variant="contained"
-                sx={{ mt: 1, bgcolor: "#2563eb", py: 1.1, textTransform: "none", fontWeight: 600 }}
+                sx={{ mt: 1, bgcolor: "#2563eb", py: 1.1, textTransform: "none", fontWeight: 600,width:'50%',margin:'auto',display:'block',fontSize:'17px' }}
               >
                 Login
               </Button>
@@ -197,14 +201,13 @@ function LoginCard() {
           </Grid>
         </Box>
         <Box sx={{ textAlign: "center", mt: 2 }}>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" sx={{fontSize:'18px'}}>
             Don’t have an account?{" "}
             <MuiLink href="#" underline="hover">
               Register
             </MuiLink>
           </Typography>
-
-          <Box
+          {/* <Box
             sx={{
               display: "flex",
               alignItems: "center",
@@ -213,11 +216,11 @@ function LoginCard() {
               mt: 1,
             }}
           >
-            <ArrowBackIosNew fontSize="small" />
-            <MuiLink href="#" underline="hover">
+            <ArrowBackIosNew sx={{ fontSize: "16px"}}/>
+            <MuiLink href="#" underline="hover" sx={{fontSize:'23px'}}>
               Back to home
             </MuiLink>
-          </Box>
+          </Box> */}
         </Box>
       </Paper>
     </Container>
