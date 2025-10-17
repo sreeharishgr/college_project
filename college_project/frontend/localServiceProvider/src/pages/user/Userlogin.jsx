@@ -110,7 +110,7 @@ function LoginCard() {
 
   return (
     <Container
-      maxWidth="xl"
+      maxWidth="xxl"
       sx={{
         padding:'0px',
         minHeight: "97.6dvh",
@@ -128,7 +128,7 @@ function LoginCard() {
           sx={{
             width: "100%",
             maxWidth: 520,
-            p: { xs: 3, sm: 4 },
+            p: { xs: 3, sm: 4,md:5,lg:10},
             borderRadius: 2,
             m: "0 auto",
             height: "auto",
