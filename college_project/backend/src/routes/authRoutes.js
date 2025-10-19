@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/sign-up', upload.single('aadhar_file'), signup);
 router.post('/login', login);
-router.post('/log-out', logout);
+router.post('/log-out',authMiddleware, logout);
 router.post('/already-logged-in', authMiddleware, alreadyLoggedIn);
 
 module.exports = router;

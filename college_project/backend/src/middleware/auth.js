@@ -24,8 +24,38 @@ exports.authMiddleware = async (req, res, next) => {
     req.user = user;
     next();
   } catch (err) {
-    console.error(err);
-    res.status(401).json({ message: 'Invalid token please login again', logged: false });
+    // Token expired
+    if (err.name === "TokenExpiredError") {
+      // Decode token without verifying expiration to get user ID
+      const decoded = jwt.decode(err.token); // decode returns payload
+      if (decoded?.id) {
+        // Update user status to false
+        await Account.update(
+      { status: false },
+      { where: { account_id: dataValues.account_id } }
+    );
+        console.log(`User ID ${decoded.id} status set to false due to expired token`);
+      }
+
+      return res.status(401).json({
+        message: "Your session has expired. Please login again.",
+        logged: false,
+        expired: true,
+      });
+    }
+
+    // Invalid token
+    if (err.name === "JsonWebTokenError") {
+      return res.status(401).json({
+        message: "Invalid token. Please login again.",
+        logged: false,
+      });
+    }
+
+    console.error("JWT Middleware Error:", err.message);
+    return res
+      .status(401)
+      .json({ message: "Authentication failed", logged: false });
   }
 };
 

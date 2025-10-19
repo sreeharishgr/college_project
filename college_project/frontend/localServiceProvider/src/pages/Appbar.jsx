@@ -200,7 +200,7 @@ function Header({ navItems = defaultNav }) {
 
   const routeMap = {
     Home: "/home",
-    Services: "/service",
+    Services: "/services",
     About: "/about",
     Contact: "/contact",
     AdminDashboard: "/AdminDashboard",

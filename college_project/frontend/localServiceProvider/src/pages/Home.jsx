@@ -1,20 +1,20 @@
 import * as React from "react";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import theme from "../../theme";
+import theme from "../theme.js";
 
 // Page sections
-import Hero from "../Home_components/Hero_section";
-import CategoryGrid from "../Home_components/Categories";
-import DirectoryCta from "../Home_components/DirectoryCta";
-import FeaturedCards from "../Home_components/Features";
-import HowItWorks from "../Home_components/Howworks";
-import CtaBand from "../Home_components/Ctaband";
-import Footer from "../Home_components/Footer";
+import Hero from  "../component/Home_components/Hero_section.jsx";
+import CategoryGrid from "../component/Home_components/Categories.jsx";
+import DirectoryCta from "../component/Home_components/DirectoryCta.jsx";
+import FeaturedCards from "../component/Home_components/Features.jsx";
+import HowItWorks from "../component/Home_components/Howworks.jsx";
+import CtaBand from "../component/Home_components/Ctaband.jsx";
+import Footer from "../component/Home_components/Footer.jsx";
 
 // Local app bar/header component (rename to avoid clash with MUI AppBar)
 import Header from "./Appbar.jsx";
 
-export default function App() {
+export default function Home() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

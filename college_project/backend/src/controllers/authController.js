@@ -47,7 +47,7 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+console.log("sss",req.body)
     const account = await Account.findOne({ where: { email } });
     if (!account) return res.status(404).json({ message: "User not found" });
 
@@ -75,11 +75,11 @@ exports.login = async (req, res) => {
 
 exports.logout = async (req, res) => {
   try {
-    const { loggedId } = req.body; // Extracted from authMiddleware
+    const { dataValues } = req.user; // Extracted from authMiddleware
 
     await Account.update(
       { status: false },
-      { where: { account_id: loggedId } }
+      { where: { account_id: dataValues.account_id } }
     );
 
     res.status(200).json({ message: "Logout successful", logged: false });

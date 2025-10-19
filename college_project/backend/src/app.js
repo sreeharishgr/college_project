@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("express").json;
 const morgan = require("morgan");
+const cors = require("cors");
 
 const authRoutes = require("./routes/authRoutes");
 const categoryRoutes = require("./routes/category");
@@ -14,6 +15,11 @@ const app = express();
 app.use(bodyParser());
 app.use(morgan("dev"));
 
+app.use(cors({
+  origin: "http://localhost:5173", // your React app URL
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  credentials: true,
+}));
 app.use("/api/category", authMiddleware, categoryRoutes);
 app.use("/api/providers", providerRoutes);
 app.use("/api/user", userRoutes);
