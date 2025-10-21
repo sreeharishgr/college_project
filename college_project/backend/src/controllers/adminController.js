@@ -19,11 +19,11 @@ exports.getUnverifiedProviders = async (req, res) => {
     });
     const total = count;
     const totalPages = Math.ceil(total / limit);
-
     // Convert Aadhaar Buffer (MEDIUMBLOB) → Base64 string
     const result = rows.map((p) => ({
       provider_id: p.account_id,
       full_name: p.full_name,
+      phone_no:p.phone_no,
       aadhar_file: p.aadhar_file
         ? p.aadhar_file.toString("base64") // Convert BLOB → Base64
         : null,
@@ -132,10 +132,10 @@ exports.getDashboardData = async (req, res) => {
     // Providers by category
     const providersByCategory = await Account.findAll({
       attributes: [
-        [Sequelize.col("category.category_name"), "category_name"],
+        [Sequelize.col("category.category_name"), "name"],
         [
           Sequelize.fn("COUNT", Sequelize.col("Account.account_id")),
-          "provider_count",
+          "uv",
         ],
       ],
       include: [
@@ -149,7 +149,7 @@ exports.getDashboardData = async (req, res) => {
         role: "provider",
       },
       group: ["category.category_id"],
-      order: [[Sequelize.literal("provider_count"), "DESC"]],
+      order: [[Sequelize.literal("uv"), "DESC"]],
       raw: true,
     });
     console.log("providersByCategory", providersByCategory);
@@ -184,8 +184,8 @@ exports.getDashboardData = async (req, res) => {
     const monthlyActivity = monthNames.map((m) => {
       const row = monthlyDataRaw.find((r) => r.month === m);
       return {
-        month: m,
-        count: row ? Number(row.count) : 0,
+        name: m,
+        uv: row ? Number(row.count) : 0,
       };
     });
     return res.json({

@@ -29,7 +29,7 @@ function LoginCard() {
   const account = useSelector((state) => state.account);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log("account", account);
+  console.log("Provideraccount", account);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setLoginDetails({ ...loginDetails, [name]: value });
@@ -61,15 +61,15 @@ function LoginCard() {
         }
       );
 
-      console.log("✅ Login successful:", response.data);
+      console.log("✅ Login successful Provider:", response.data);
 
       dispatch(setAccount(response.data.user)); // optional Redux dispatch
 
       localStorage.setItem("AccountToken", response.data.token); // store token
       setErrors({ email: "", password: "", api: "" });
-      navigate("/home");
+      navigate("/provider-home");
     } catch (error) {
-      console.error("❌ Login failed:", error);
+      console.error("❌ Login failed Provider:", error);
 
       const apiError =
         error.response?.data?.message ||
@@ -105,7 +105,7 @@ function LoginCard() {
       >
         <Box sx={{ textAlign: "center", mb: 2 }}>
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
-            User Portal
+            Provider Portal
           </Typography>
           <Typography
             variant="body2"
@@ -202,7 +202,7 @@ function LoginCard() {
             color="text.secondary"
             sx={{ fontSize: "18px" }}
           >
-            Don’t have an account? <Link to="/user-register">Register</Link>
+            Don’t have an account? <Link to="/provider-register">Register</Link>
           </Typography>
         </Box>
       </Paper>
@@ -210,7 +210,7 @@ function LoginCard() {
   );
 }
 
-export default function UserLogin() {
+export default function ProviderLogin() {
   return (
     <Box
       sx={{

@@ -77,7 +77,6 @@ exports.validateSignupData = async (account) => {
       !category_name ||
       !experience ||
       !qualification ||
-      !hour_rate ||
       !description
     ) {
       throw new Error("Missing required fields for provider");

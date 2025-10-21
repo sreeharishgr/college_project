@@ -11,7 +11,7 @@ const { generateToken } = require("../utlis/token");
 exports.signup = async (req, res) => {
   try {
     let message;
-
+console.log("res",req.body)
     const validatedData = await validateSignupData(req.body);
 
     if (validatedData.role === "provider") {

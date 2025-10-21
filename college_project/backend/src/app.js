@@ -20,7 +20,7 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   credentials: true,
 }));
-app.use("/api/category", authMiddleware, categoryRoutes);
+app.use("/api/category", categoryRoutes);
 app.use("/api/providers", providerRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/admin", adminRoutes);

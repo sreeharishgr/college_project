@@ -1,122 +1,36 @@
-import * as React from "react";
+import { React, useEffect, useState } from "react";
 import {
-  AppBar,
-  Toolbar,
-  Typography,
   Box,
+  Button,
   Container,
   Grid,
-  IconButton,
-  Stack,
-  Button,
   Paper,
-  useMediaQuery,
+  Typography,
+  Stack,
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions
+  DialogActions,
+  CircularProgress,
+  Pagination,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import DashboardIcon from "@mui/icons-material/SpaceDashboard";
-import HistoryIcon from "@mui/icons-material/History";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import LogoutIcon from "@mui/icons-material/Logout";
+import axios from "axios";
 
-// Notification samples
-const sampleRequests = [
-  {
-    id: "1",
-    title: "Kannan’s document Verification Request",
-    createdAt: "Just now"
-  },
-  { id: "2", title: "Kannan’s document Verification Request", createdAt: "Today" },
-  { id: "3", title: "Kannan’s document Verification Request", createdAt: "Yesterday" },
-  { id: "4", title: "Kannan’s document Verification Request", createdAt: "2 days ago" }
-];
-
-// Use actual import or URL for your image
-import DOCUMENT_IMAGE from '../../../src/assest/adhar_front_1500x1000.png'; // update the path as needed
-
-const navItems = [
-  { label: "Dashboard", icon: <DashboardIcon />, href: "/dashboard" },
-  { label: "History", icon: <HistoryIcon />, href: "/history" },
-  { label: "Notification", icon: <NotificationsIcon />, href: "/notification", active: true },
-  { label: "Logout", icon: <LogoutIcon />, href: "/logout" }
-];
-
-function TopBar({ onNavigate }) {
-  const upMd = useMediaQuery("(min-width:900px)");
-  return (
-    <AppBar
-      position="fixed"
-      elevation={0}
-      color="inherit"
-      sx={{
-        borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
-        backdropFilter: "saturate(180%) blur(6px)",
-        bgcolor: (t) => (t.palette.mode === "light" ? "rgba(255,255,255,0.9)" : "rgba(18,18,18,0.8)")
-      }}
-    >
-      <Toolbar sx={{ gap: 2 }}>
-        {!upMd && (
-          <IconButton edge="start" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-        )}
-        <Typography variant="h6" sx={{ fontWeight: 700, mr: 4 }}>
-          Local Service Find
-        </Typography>
-        <Stack direction="row" spacing={1} sx={{ flexGrow: 1, display: "flex", alignItems: "center" ,justifyContent:'end'}}>
-          {navItems.map((item) => (
-            <Button
-              key={item.label}
-              startIcon={item.icon}
-              variant={item.active ? "contained" : "text"}
-              color={item.active ? "success" : "inherit"}
-              sx={{
-                fontWeight: item.active ? 700 : 400,
-                bgcolor: item.active ? "success.light" : undefined,
-                textTransform: "none"
-              }}
-              // onClick can use navigation logic, e.g. with useNavigate hook from react-router
-              onClick={() => onNavigate(item.href)}
-            >
-              {item.label}
-            </Button>
-          ))}
-        </Stack>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1, ml: 2 }}>
-          <Box
-            sx={{
-              width: 28,
-              height: 28,
-              borderRadius: "50%",
-              border: (t) => `1px solid ${t.palette.divider}`,
-              display: "grid",
-              placeItems: "center",
-              fontSize: 16
-            }}
-          >
-            ⓐ
-          </Box>
-          <Typography variant="body2">Admin</Typography>
-        </Box>
-      </Toolbar>
-    </AppBar>
-  );
-}
-
-function NotificationCard({ title, createdAt, onAccept, onCancel }) {
+// 🔹 Notification Card
+function NotificationCard({ title, createdAt, onAccept }) {
   return (
     <Paper
       variant="outlined"
       sx={{
         p: 2,
         borderRadius: 2,
-        bgcolor: (t) => (t.palette.mode === "light" ? t.palette.grey[100] : t.palette.background.paper),
+        bgcolor: (t) =>
+          t.palette.mode === "light"
+            ? t.palette.grey[100]
+            : t.palette.background.paper,
         display: "flex",
         alignItems: "center",
-        gap: 2
+        gap: 2,
       }}
     >
       <Box sx={{ flexGrow: 1 }}>
@@ -127,7 +41,11 @@ function NotificationCard({ title, createdAt, onAccept, onCancel }) {
           {createdAt}
         </Typography>
       </Box>
-      <Stack direction={{ xs: "column", sm: "row" }} spacing={1} alignItems="flex-end">
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={1}
+        alignItems="flex-end"
+      >
         <Button
           size="small"
           variant="contained"
@@ -137,41 +55,109 @@ function NotificationCard({ title, createdAt, onAccept, onCancel }) {
         >
           View & Accept
         </Button>
-        <Button
-          size="small"
-          variant="outlined"
-          color="inherit"
-          onClick={onCancel}
-          sx={{ textTransform: "none", minWidth: 100 }}
-        >
-          Cancel
-        </Button>
       </Stack>
     </Paper>
   );
 }
 
-function DocumentModal({ open, onClose, images }) {
+// 🔹 Document Modal
+function DocumentModal({
+  open,
+  onClose,
+  images,
+  providerName,
+  onAccept,
+  loading,
+  successMessage,
+  errorMessage,
+}) {
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle sx={{ fontWeight: 700 }}>Kannan’s document</DialogTitle>
+      <DialogTitle sx={{ fontWeight: 700 }}>
+        {providerName}’s Documents
+      </DialogTitle>
+
       <DialogContent>
-        <Box sx={{ display: "flex", gap: 2, justifyContent: "center", alignItems: "center" }}>
-          {images.map((img, idx) => (
-            <img
-              key={idx}
-              src={img}
-              alt="document"
-              style={{ width: "45%", borderRadius: 8, objectFit: "cover" }}
-            />
-          ))}
+        <Box
+          sx={{
+            display: "flex",
+            gap: 2,
+            justifyContent: "center",
+            alignItems: "center",
+            flexWrap: "wrap",
+            mb: 2,
+          }}
+        >
+          {images.map((file, idx) => {
+            const isPdf = file.startsWith("JVBER"); // check PDF
+            return isPdf ? (
+              <object
+                key={idx}
+                data={`data:application/pdf;base64,${file}`}
+                type="application/pdf"
+                width="100%"
+                height="500px"
+                style={{
+                  borderRadius: 8,
+                  boxShadow: "0 0 8px rgba(0,0,0,0.1)",
+                }}
+              >
+                <p>
+                  PDF cannot be displayed.
+                  <a
+                    href={`data:application/pdf;base64,${file}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Download PDF
+                  </a>
+                </p>
+              </object>
+            ) : (
+              <img
+                key={idx}
+                src={`data:image/jpeg;base64,${file}`}
+                alt="document"
+                style={{
+                  width: "60%",
+                  borderRadius: 8,
+                  objectFit: "cover",
+                  boxShadow: "0 0 8px rgba(0,0,0,0.1)",
+                }}
+              />
+            );
+          })}
         </Box>
+
+        {/* ✅ Feedback messages */}
+        {successMessage && (
+          <Typography color="success.main" textAlign="center" sx={{ mt: 1 }}>
+            {successMessage}
+          </Typography>
+        )}
+        {errorMessage && (
+          <Typography color="error.main" textAlign="center" sx={{ mt: 1 }}>
+            {errorMessage}
+          </Typography>
+        )}
       </DialogContent>
+
       <DialogActions>
-        <Button variant="contained" color="success" onClick={onClose}>
-          Accept
+        <Button
+          variant="contained"
+          color="success"
+          disabled={loading}
+          onClick={onAccept}
+          sx={{ minWidth: 120 }}
+        >
+          {loading ? <CircularProgress size={22} color="inherit" /> : "Accept"}
         </Button>
-        <Button variant="outlined" color="inherit" onClick={onClose}>
+        <Button
+          variant="outlined"
+          color="inherit"
+          onClick={onClose}
+          disabled={loading}
+        >
           Cancel
         </Button>
       </DialogActions>
@@ -179,52 +165,165 @@ function DocumentModal({ open, onClose, images }) {
   );
 }
 
+// 🔹 Main Page
 export default function NotificationPage() {
-  const [modalOpen, setModalOpen] = React.useState(false);
-  const [currentDocument, setCurrentDocument] = React.useState([]);
+  const [providers, setProviders] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [currentProvider, setCurrentProvider] = useState(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [modalLoading, setModalLoading] = useState(false);
+  const [modalSuccess, setModalSuccess] = useState("");
+  const [modalError, setModalError] = useState("");
 
-  // Add react-router navigation for real use
-  const onNavigate = (href) => {
-    window.location.href = href; // Use useNavigate if using react-router, replace as needed
+  // 🔸 Fetch paginated unverified providers
+  const fetchProviders = async (pageNumber = 1) => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(
+        `${
+          import.meta.env.VITE_API_URL
+        }/admin/unverifiedProviders?page=${pageNumber}`
+      );
+
+      setProviders(data.providers || []);
+      setTotalPages(data.totalPages || 1);
+      setPage(data.currentPage || 1);
+    } catch (err) {
+      console.error("Error fetching unverified providers:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleAccept = (id) => {
-    setCurrentDocument([DOCUMENT_IMAGE, DOCUMENT_IMAGE]);
+  useEffect(() => {
+    fetchProviders(page);
+  }, [page]);
+
+  // 🔸 Modal open on accept
+  const handleView = (provider) => {
+    setCurrentProvider(provider);
     setModalOpen(true);
   };
+  console.log("currentProvider", currentProvider);
 
   const handleModalClose = () => setModalOpen(false);
+
+  const handleAccept = async () => {
+    if (!currentProvider) return;
+
+    setModalLoading(true);
+    setModalSuccess("");
+    setModalError("");
+
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/admin/verifyProvider`,
+        { providerId: currentProvider.provider_id }
+      );
+
+      setModalSuccess(`${currentProvider.full_name} verified successfully!`);
+
+      // Refresh data after a short delay
+      setTimeout(() => {
+        setModalOpen(false);
+        fetchProviders(page);
+        setModalSuccess("");
+      }, 1500);
+    } catch (err) {
+      console.error("Error verifying provider:", err);
+      setModalError("Failed to verify provider. Try again later.");
+    } finally {
+      setModalLoading(false);
+    }
+  };
 
   const handleCancel = (id) => {
     console.log("Cancel clicked:", id);
   };
 
+  // 🔸 Pagination change
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "#eef4ff" }}>
-      <TopBar onNavigate={onNavigate} />
-      {/* Main content below navbar */}
-      <Box component="main" sx={{ pt: 9 }}>
-        <Container maxWidth="lg" sx={{ py: 4 }}>
-          <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
-            Notification
-          </Typography>
-          <Grid container spacing={2}>
-            {sampleRequests.map((r) => (
-              <Grid item xs={12} key={r.id}>
-                <NotificationCard
-                  title={r.title}
-                  createdAt={r.createdAt}
-                  onAccept={() => handleAccept(r.id)}
-                  onCancel={() => handleCancel(r.id)}
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
+          Notification
+        </Typography>
+
+        {loading ? (
+          <Box
+            sx={{
+              py: 6,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        ) : (
+          <>
+            <Grid container spacing={2}>
+              {providers.length > 0 ? (
+                providers.map((p) => (
+                  <Grid size={{ xs: 12, sm: 6 }} key={p.provider_id}>
+                    <NotificationCard
+                      title={`${p.full_name}'s Document Verification Request`}
+                      createdAt={`Contact Number: ${p.phone_no}`}
+                      onAccept={() => handleView(p)}
+                      onCancel={() => handleCancel(p.provider_id)}
+                    />
+                  </Grid>
+                ))
+              ) : (
+                <Grid item xs={12}>
+                  <Typography textAlign="center" color="text.secondary">
+                    No unverified providers found.
+                  </Typography>
+                </Grid>
+              )}
+            </Grid>
+
+            {/* Pagination controls */}
+            {totalPages > 1 && (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  mt: 4,
+                }}
+              >
+                <Pagination
+                  count={totalPages}
+                  page={page}
+                  onChange={handlePageChange}
+                  color="primary"
+                  shape="rounded"
                 />
-              </Grid>
-            ))}
-          </Grid>
-          <Box sx={{ height: 220 }} />
-        </Container>
-      </Box>
-      {/* Modal for document images */}
-      <DocumentModal open={modalOpen} onClose={handleModalClose} images={currentDocument} />
+              </Box>
+            )}
+          </>
+        )}
+      </Container>
+
+      {/* Document Modal */}
+      {currentProvider && (
+        <DocumentModal
+          open={modalOpen}
+          onClose={handleModalClose}
+          images={[currentProvider.aadhar_file].filter(Boolean)}
+          providerName={currentProvider.full_name}
+          onAccept={handleAccept}
+          loading={modalLoading}
+          successMessage={modalSuccess}
+          errorMessage={modalError}
+        />
+      )}
     </Box>
   );
 }

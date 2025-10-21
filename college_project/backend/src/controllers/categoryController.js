@@ -5,7 +5,7 @@ exports.getAllCategories = async (req, res) => {
   try {
     // 🧠 Raw SQL query with alias names
     const categories = await sequelize.query(
-      `SELECT category_id AS id, category_name AS categoryName 
+      `SELECT category_id , category_name AS categoryName 
        FROM categories`,
       {
         type: QueryTypes.SELECT, // ensures it returns plain JS objects

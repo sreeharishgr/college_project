@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -9,7 +9,9 @@ import {
   CardContent,
   CardMedia,
   Switch,
-  Avatar, Grid
+  Avatar,
+  Grid,
+  CircularProgress,
 } from "@mui/material";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -17,6 +19,10 @@ import RoomOutlinedIcon from "@mui/icons-material/RoomOutlined";
 import BoltOutlinedIcon from "@mui/icons-material/BoltOutlined";
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import StarIcon from "@mui/icons-material/Star";
+
+import { useSelector,useDispatch } from "react-redux";
+import { setAccount } from "../../redux/slices/accountSlice";
+import axios from "axios";
 
 const gig = {
   cover:
@@ -33,12 +39,41 @@ const gig = {
 };
 
 export default function GigsPage() {
-  const [active, setActive] = React.useState(true);
+  const [loading, setLoading] = useState(false);
+  const providerAccount = useSelector((state) => state.account.account);
+  const dispatch = useDispatch()
+
+  console.log("providerAccount",providerAccount)
+ const handleActive = async (e) => {
+    const newStatus = e.target.checked;
+    setLoading(true);
+    console.log("newStatus",newStatus)
+
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/providers/handleActiveStatus`,
+        {
+          providerId: providerAccount.provider_id,
+          status: newStatus,
+        }
+      );
+
+      // Update Redux state on success
+      dispatch(setAccount({ ...providerAccount, status: res.data.status }));
+
+      console.log("Status updated:", res.data);
+    } catch (error) {
+      console.error("Error updating status:", error);
+      alert("Failed to update status. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Box sx={{ minHeight: "98dvh", bgcolor: "#eaf3fb" }}>
       {/* Navbar */}
-      <AppBar position="static" elevation={0} sx={{ bgcolor: "#fff", color: "#222" }}>
+      {/* <AppBar position="static" elevation={0} sx={{ bgcolor: "#fff", color: "#222" }}>
         <Toolbar>
           <Avatar sx={{ bgcolor: "#f2f7fb", color: "#222", mr: 2 }}>
             <PersonOutlinedIcon />
@@ -53,7 +88,7 @@ export default function GigsPage() {
             Logout
           </Button>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
 
       {/* Main Content */}
       <Grid container spacing={0} maxWidth='xl' sx={{ mx: "auto", mt: 4 }}>
@@ -79,13 +114,14 @@ export default function GigsPage() {
                 borderTopLeftRadius: 16,
                 borderTopRightRadius: 16
               }}
-              image={gig.cover}
+              image="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
+
               alt="gig cover"
             />
             {/* Toggle Switch */}
-            <Switch
-              checked={active}
-              onChange={() => setActive((prev) => !prev)}
+            {/* <Switch
+              checked={providerAccount.status}
+              onChange={handleActive}
               sx={{
                 position: "absolute",
                 top: 12,
@@ -94,35 +130,51 @@ export default function GigsPage() {
                 borderRadius: 2
               }}
               inputProps={{ 'aria-label': 'active toggle' }}
-            />
+            /> */}
+            {/* ✅ Active/Inactive Toggle */}
+              <Box sx={{ position: "absolute", top: 12, right: 12 }}>
+                {loading ? (
+                  <CircularProgress size={26} color="inherit" />
+                ) : (
+                  <Switch
+                    checked={!!providerAccount.status}
+                    onChange={handleActive}
+                    sx={{
+                      bgcolor: "rgba(0,0,0,0.5)",
+                      borderRadius: 2,
+                    }}
+                    inputProps={{ "aria-label": "active toggle" }}
+                  />
+                )}
+              </Box>
           </Box>
           <CardContent sx={{ pb: 2.5 }}>
             <Box display="flex" alignItems="center" justifyContent="space-between">
               <Typography variant="subtitle1" fontWeight={700}>
-                {gig.company}
+                {providerAccount.serviceCategoryName}
               </Typography>
-              <Typography sx={{ color: "#0ca678", fontWeight: 700 }}>
+              {/* <Typography sx={{ color: "#0ca678", fontWeight: 700 }}>
                 {gig.price}
-              </Typography>
+              </Typography> */}
             </Box>
-            <Typography variant="caption" color="text.secondary" gutterBottom>Name</Typography>
+            <Typography variant="caption" color="text.secondary" gutterBottom>{providerAccount.full_name}</Typography>
             <Box sx={{ display: "flex", alignItems: "center", mt: 0.5 }}>
               {[...Array(5)].map((_, i) => (
                 <StarIcon
                   key={i}
                   fontSize="small"
                   sx={{
-                    color: i < Math.round(gig.rating) ? "#ffbe32" : "#e0e0e0",
+                    color: i < Math.round(providerAccount.rating) ? "#ffbe32" : "#e0e0e0",
                     fontSize: 18
                   }}
                 />
               ))}
               <Typography variant="body2" sx={{ ml: 0.5 }}>
-                {gig.rating} ({gig.reviews} reviews)
+                {providerAccount.rating} ({providerAccount.reviews} reviews)
               </Typography>
             </Box>
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1.5 }}>
-              {gig.desc}
+              {providerAccount.description}
             </Typography>
             <Box sx={{ display: "flex", gap: 2, mt: 2, flexWrap: "wrap" }}>
               <Typography
@@ -130,14 +182,14 @@ export default function GigsPage() {
                 sx={{ display: "flex", alignItems: "center", color: "#8a93a7" }}
               >
                 <RoomOutlinedIcon sx={{ fontSize: 18, mr: 0.5 }} />
-                {gig.location}
+                {providerAccount.location}
               </Typography>
               <Typography
                 variant="body2"
                 sx={{ display: "flex", alignItems: "center", color: "#8a93a7" }}
               >
                 <BoltOutlinedIcon sx={{ fontSize: 18, mr: 0.5 }} />
-                {gig.experience} +yrs exp
+                {providerAccount.experience} +yrs exp
               </Typography>
               <Typography
                 variant="body2"

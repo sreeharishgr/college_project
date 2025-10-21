@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -39,6 +39,9 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import MiscellaneousServicesOutlinedIcon from "@mui/icons-material/MiscellaneousServicesOutlined";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import ContactMailOutlinedIcon from "@mui/icons-material/ContactMailOutlined";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined";
+import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 
 import {
   BarChart,
@@ -49,19 +52,20 @@ import {
   Tooltip as ReTooltip,
   CartesianGrid,
 } from "recharts";
+import axios from "axios";
 
 const drawerWidth = 220;
 
 const theme = createTheme({
   palette: {
     mode: "light",
-    primary: { main: "#3b5bfd" }, 
+    primary: { main: "#3b5bfd" },
     text: {
       primary: "#1a1f36",
       secondary: "#5f6b85",
     },
     background: {
-      default: "#eef4ff", 
+      default: "#eef4ff",
       paper: "#ffffff",
     },
     divider: alpha("#000", 0.06),
@@ -97,13 +101,6 @@ const theme = createTheme({
   },
 });
 
-const navTopLinks = [
-  { label: "Home", icon: <HomeOutlinedIcon fontSize="small" /> },
-  { label: "Services", icon: <MiscellaneousServicesOutlinedIcon fontSize="small" /> },
-  { label: "About", icon: <InfoOutlinedIcon fontSize="small" /> },
-  { label: "Contact", icon: <ContactMailOutlinedIcon fontSize="small" /> },
-];
-
 const sideNav = [
   { label: "Dashboard", icon: <DashboardIcon /> },
   { label: "History", icon: <HistoryIcon /> },
@@ -111,55 +108,46 @@ const sideNav = [
   { label: "Logout", icon: <LogoutOutlinedIcon /> },
 ];
 
-const metrics = [
-  {
+const convertMetrics = (data) => {
+  return [
+    {
     label: "Active Users",
-    value: "275",
-    icon: <PersonOutlineIcon />,
+    value: data.activeUsers,
+    icon: <PersonOutlineIcon sx={{ color: "#58d327ff" }} />,
   },
   {
-    label: "New User",
-    value: "3,298",
-    icon: <GroupAddOutlinedIcon />,
+    label: "Total Users",
+    value: data.totalUsers,
+    icon: <GroupAddOutlinedIcon sx={{ color: "#21be2eff" }} />,
   },
-  {
-    label: "Total providers",
-    value: "258",
-    icon: <StorefrontOutlinedIcon />,
-  },
-  {
+   {
     label: "Not Verified Providers",
-    value: "35",
-    icon: <ReportGmailerrorredOutlinedIcon />,
+    value: data.notVerifiedProviders,
+    icon: <ReportGmailerrorredOutlinedIcon sx={{ color: "#e53935" }} />,
   },
   {
-    label: "Monthly",
-    value: "867",
-    icon: <CalendarMonthOutlinedIcon />,
-    tinySpark: true,
+    label: "Active Providers",
+    value: data.activeProviders,
+    icon: <VerifiedOutlinedIcon sx={{ color: "#009688" }} />,
+  },
+   {
+    label: "Total providers",
+    value: data.totalProviders,
+    icon: <WorkOutlineOutlinedIcon sx={{ color: "#1e88e5" }} />,
   },
   {
-    label: "Yearly",
-    value: "+34%",
-    icon: <TimelineOutlinedIcon />,
-    tinySpark: true,
+    label: "totalCategories",
+    value: data.totalCategories,
+    icon: <CategoryOutlinedIcon sx={{ color: "#ff9800" }} />,
   },
-];
-
-const activity = [
-  { name: "JAN", uv: 70 },
-  { name: "FEB", uv: 110 },
-  { name: "MAR", uv: 150 },
-  { name: "APR", uv: 220 },
-  { name: "MAY", uv: 260 },
-  { name: "JUN", uv: 190 },
-  { name: "JUL", uv: 230 },
-  { name: "AUG", uv: 90 },
-  { name: "SEP", uv: 180 },
-  { name: "OCT", uv: 310 },
-  { name: "NOV", uv: 360 },
-  { name: "DEC", uv: 380 },
-];
+  // {
+  //   label: "Yearly",
+  //   value: "+34%",
+  //   icon: <TimelineOutlinedIcon />,
+  //   tinySpark: true,
+  // },
+  ]
+}
 
 const TinySpark = ({ color = theme.palette.primary.main }) => (
   <Box
@@ -226,13 +214,11 @@ const StatCard = ({ label, value, icon, tinySpark }) => (
       <Typography variant="h5" sx={{ mt: 1 }}>
         {value}
       </Typography>
-      {tinySpark ? (
-        <TinySpark />
-      ) : null}
+      {tinySpark ? <TinySpark /> : null}
     </CardContent>
   </Card>
 );
-const ActivityCard = () => {
+const ActivityCard = ({activity}) => {
   const isXs = useMediaQuery("(max-width:600px)");
   return (
     <Card
@@ -248,7 +234,11 @@ const ActivityCard = () => {
       }}
     >
       <CardContent sx={{ p: 2.5 }}>
-        <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
           <Typography variant="body2">Activity</Typography>
           <Chip
             variant="outlined"
@@ -299,8 +289,26 @@ const ActivityCard = () => {
 };
 
 export default function LocalServiceFindDashboard() {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [dasboradDetails, setDasboradDeatails] = useState({})
+  const [mobileOpen, setMobileOpen] = useState(false);
   const isMdUp = useMediaQuery("(min-width:900px)");
+
+  useEffect(() => {
+     const fetchDasboardDeatails = async () => {
+      try {
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_API_URL}/admin/getDashboard`
+        );
+        console.log("dasborad", data);
+        setDasboradDeatails(data)
+      } catch (err) {
+        console.error("Failed to fetch Dasboard Deatails", err);
+      }
+    };
+    fetchDasboardDeatails()
+  }, []);
+
+  const metrics = convertMetrics(dasboradDetails)
 
   const drawer = (
     <Box
@@ -366,7 +374,14 @@ export default function LocalServiceFindDashboard() {
           }}
           aria-hidden
         >
-          <span style={{ width: 8, height: 8, borderRadius: "50%", background: alpha("#000", 0.6) }} />
+          <span
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: "50%",
+              background: alpha("#000", 0.6),
+            }}
+          />
         </Box>
         <Typography variant="body1" sx={{ fontWeight: 700 }}>
           Admin
@@ -378,58 +393,14 @@ export default function LocalServiceFindDashboard() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ display: "flex", minHeight: "100vh", bgcolor: "background.default" }}>
+      <Box
+        sx={{
+          display: "flex",
+          minHeight: "100vh",
+          bgcolor: "background.default",
+        }}
+      >
         {/* Top App Bar */}
-        <AppBar
-          position="fixed"
-          color="transparent"
-          elevation={0}
-          sx={{
-            borderBottom: "1px solid",
-            borderColor: "divider",
-            backdropFilter: "saturate(180%) blur(8px)",
-            backgroundColor: alpha(theme.palette.background.default, 0.9),
-          }}
-        >
-          <Toolbar sx={{ minHeight: 72, px: 2 }}>
-            {!isMdUp && (
-              <IconButton
-                edge="start"
-                onClick={() => setMobileOpen(true)}
-                aria-label="open sidebar"
-                sx={{ mr: 1.5 }}
-              >
-                <MenuIcon />
-              </IconButton>
-            )}
-            <Typography variant="h6" sx={{ fontWeight: 800, color: theme.palette.primary.main }}>
-              Local Service Find
-            </Typography>
-            <Box sx={{ flexGrow: 1 }} />
-            <nav aria-label="Top navigation">
-              <Stack direction="row" spacing={3} alignItems="center">
-                {navTopLinks.map((n) => (
-                  <MuiLink
-                    key={n.label}
-                    component="button"
-                    underline="none"
-                    color="text.secondary"
-                    sx={{
-                      display: { xs: "none", sm: "inline-flex" },
-                      alignItems: "center",
-                      gap: 0.7,
-                      fontSize: 14,
-                      "&:hover": { color: "text.primary" },
-                    }}
-                  >
-                    {n.icon}
-                    {n.label}
-                  </MuiLink>
-                ))}
-              </Stack>
-            </nav>
-          </Toolbar>
-        </AppBar>
 
         {/* Sidebar */}
         <Box
@@ -482,7 +453,7 @@ export default function LocalServiceFindDashboard() {
           sx={{
             flexGrow: 1,
             px: { xs: 2, sm: 3, md: 4 },
-            py: { xs: 10, sm: 12 },
+            py: { xs: 0, sm: 0 },
             ml: { md: `${drawerWidth}px` },
           }}
         >
@@ -512,18 +483,10 @@ export default function LocalServiceFindDashboard() {
           </Box>
 
           {/* Activity chart */}
-          <ActivityCard />
+          <ActivityCard activity={dasboradDetails.monthlyActivity}/>
 
           {/* Footer mimic spacing */}
           <Divider sx={{ my: 3 }} />
-          <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap">
-            <Tooltip title="Material UI components">
-              <Chip variant="outlined" label="Material UI" />
-            </Tooltip>
-            <Tooltip title="Recharts responsive bar">
-              <Chip color="primary" variant="outlined" label="Recharts" />
-            </Tooltip>
-          </Stack>
         </Box>
       </Box>
     </ThemeProvider>

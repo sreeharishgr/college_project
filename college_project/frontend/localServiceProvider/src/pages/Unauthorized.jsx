@@ -12,7 +12,7 @@ export default function Unauthorized() {
       <Typography variant="body1" sx={{ mt: 2 }}>
         You don’t have permission to access this page.
       </Typography>
-      <Button component={Link} to="/user-login" variant="contained" sx={{ mt: 3 }}>
+      <Button component={Link} to="/" variant="contained" sx={{ mt: 3 }}>
         Go to Login
       </Button>
     </Box>

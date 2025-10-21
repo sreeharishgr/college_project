@@ -83,7 +83,7 @@ exports.getAllRatingsPaginated = async (req, res) => {
       offset,
       order: Sequelize.literal("created_at DESC"),
     });
-
+console.log("rows",rows)
     res.status(200).json({
       totalPages: Math.ceil(count / limit),
       totalRatings: count,
