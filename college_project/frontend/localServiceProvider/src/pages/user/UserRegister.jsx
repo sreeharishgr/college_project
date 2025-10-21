@@ -22,7 +22,7 @@ export default function ProfileForm() {
     full_name: "",
     email: "",
     phone_no: "",
-    location: "Nagercoil",
+    location: "",
     password: "",
     role: "user",
     retypePassword: "",
@@ -63,6 +63,8 @@ export default function ProfileForm() {
     else if (!/^\d{10}$/.test(newUser.phone_no))
       newErrors.phone_no = "Phone number must be 10 digits";
 
+    if (!newUser.location.trim())
+      newErrors.location = "location name is required";
     // Password
     if (!newUser.password) newErrors.password = "Password is required";
     else if (newUser.password.length < 6)
@@ -84,7 +86,7 @@ export default function ProfileForm() {
       full_name: "",
       email: "",
       phone_no: "",
-      location: "Nagercoil",
+      location: "",
       password: "",
       role: "user",
       retypePassword: "",
@@ -231,12 +233,11 @@ export default function ProfileForm() {
                   name="location"
                   label="Location"
                   value={newUser.location}
+                  onChange={handleChange}
                   required
                   fullWidth
-                  disabled // ✅ user cannot edit this field
-                  InputProps={{
-                    readOnly: true, // optional extra safety
-                  }}
+                  error={Boolean(errors.location)}
+                  helperText={errors.location}
                 />
               </Grid>
               <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6 }}>

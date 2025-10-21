@@ -50,6 +50,7 @@ import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 import EngineeringIcon from "@mui/icons-material/Engineering";
 import axios from "axios";
 import ProviderDetailsModal from "../features/providerDetailsModal";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ServiceCard = ({ service }) => {
   const [openContact, setOpenContact] = useState(false);
@@ -309,9 +310,13 @@ const ServiceCard = ({ service }) => {
 };
 
 const ServiceListingPage = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const categoryFromURL = queryParams.get("category") || "";
+
   const [providers, setProviders] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(categoryFromURL);
   const [rating, setRating] = useState("");
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
@@ -319,6 +324,8 @@ const ServiceListingPage = () => {
   const [totalPages, setTotalPages] = useState(1);
 
   const resSize = providers.length < 2 ? 12 : 6;
+
+  const navigate = useNavigate();
   // 🔹 Fetch categories
   useEffect(() => {
     const fetchCategories = async () => {
@@ -361,6 +368,12 @@ const ServiceListingPage = () => {
     fetchProviders();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [page, category, rating, status]);
+
+   useEffect(() => {
+    if (categoryFromURL) {
+      navigate("/services", { replace: true });
+    }
+  }, []); 
 
   const clearFilters = () => {
     setCategory("");

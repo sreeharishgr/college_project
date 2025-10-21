@@ -67,7 +67,13 @@ function LoginCard() {
 
       localStorage.setItem("AccountToken", response.data.token); // store token
       setErrors({ email: "", password: "", api: "" });
-      navigate("/home");
+      if(response.data.user.role === "user"){
+        navigate("/home");
+      }else if (response.data.user.role === "admin"){
+        navigate("/admin-dashboard");
+      }else {
+        navigate('/unauthorized')
+      }
     } catch (error) {
       console.error("❌ Login failed:", error);
 

@@ -5,8 +5,6 @@ import { useAuthCheck } from "../hooks/useAuthCheck";
 export default function ProtectedRoute({ allowedRoles }) {
   const { loading, isValid, account } = useAuthCheck();
   const token = localStorage.getItem("AccountToken");
-// console.log({loading,isValid,account})
-// console.log("sbdfbdfh",((!token || !isValid) ||(allowedRoles && !allowedRoles.includes(account.role))))
   if (loading) {
     return (
       <div
@@ -24,9 +22,9 @@ export default function ProtectedRoute({ allowedRoles }) {
     );
   }
 
-  // if (!token || !isValid) return <Navigate to="/user-login" replace />;
+  if (!token || !isValid) return <Navigate to="/" replace />;
 
-  if ((!token || !isValid) ||(allowedRoles && !allowedRoles.includes(account.role)))
+  if (allowedRoles && !allowedRoles.includes(account.role))
     return <Navigate to="/unauthorized" replace />;
 
   return <Outlet />;

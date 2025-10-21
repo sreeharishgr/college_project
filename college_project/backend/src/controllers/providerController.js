@@ -12,7 +12,7 @@ exports.getProviders = async (req, res) => {
     const { category_id, min_rating, status } = req.query;
     console.log("query", req.query);
     // Build filters
-    let whereClause = { role: "provider" };
+    let whereClause = { role: "provider",verified:true };
     if (status !== undefined) whereClause.status = status === "true";
     if (category_id) whereClause.service_category_id = category_id;
     console.log("whereClause", whereClause);

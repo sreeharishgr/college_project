@@ -34,7 +34,7 @@ function ProviderPortalForm() {
     full_name: "",
     email: "",
     phone_no: "",
-    location: "Nagercoil", // ✅ Fixed location
+    location: "", // ✅ Fixed location
     password: "",
     retypePassword: "",
     category_name: "",
@@ -97,6 +97,7 @@ function ProviderPortalForm() {
     else if (!/^\d{10}$/.test(form.phone_no))
       newErrors.phone_no = "Phone number must be 10 digits";
 
+    if (!form.location.trim()) newErrors.location = "location name is required";
     if (!form.password) newErrors.password = "Password is required";
     else if (form.password.length < 6)
       newErrors.password = "Password must be at least 6 characters";
@@ -160,7 +161,7 @@ const {retypePassword, ...params}= form
         full_name: "",
         email: "",
         phone_no: "",
-        location: "Nagercoil",
+        location: "",
         password: "",
         retypePassword: "",
         category_name: "",
@@ -254,8 +255,8 @@ const {retypePassword, ...params}= form
                 value={form.location}
                 onChange={handleChange}
                 fullWidth
-                disabled
-                InputProps={{ readOnly: true }}
+                error={Boolean(errors.location)}
+                helperText={errors.location}
               />
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>

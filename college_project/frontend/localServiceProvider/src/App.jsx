@@ -26,42 +26,39 @@ export default function App() {
         {/* 🌐 Public Routes */}
 
         <Route path="/" element={<HomeChoice />} />
+
+        <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+
         <Route path="/user-login" element={<UserLogin />} />
         <Route path="/provider-login" element={<ProviderLogin />} />
-        <Route path="/services" element={<ServiceListingPage />} />
         
+
         <Route path="/user-register" element={<ProfileForm />} />
         <Route path="/provider-register" element={<ProviderPortalForm />} />
-        
-        <Route
-          path="/admin-dashboard"
-          element={<LocalServiceFindDashboard />}
-        />
-        <Route
-          path="/notifications"
-          element={<NotificationPage />}
-        />
-        <Route path="/RatingHistory" element={<RatingHistory />} />
-        {/* <Route path="/provider-register" element={<ProviderRegister />} /> */}
 
         {/* 🧭 Shared Protected Routes for "user" and "admin" */}
-        <Route element={ <ProtectedRoute allowedRoles={["user", "admin", "provider"]} />}>
+        <Route element={ <ProtectedRoute allowedRoles={["user", "admin"]} />}>
           <Route path="/home" element={<Home />} />
+        <Route path="/services" element={<ServiceListingPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
         </Route>
 
         {/* 🧭 Admin-only Routes */}
-        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}></Route>
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+        <Route
+          path="/admin-dashboard"
+          element={<LocalServiceFindDashboard />}
+        />
+        <Route path="/notifications" element={<NotificationPage />} />
+        <Route path="/RatingHistory" element={<RatingHistory />} />
+        </Route>
 
         {/* 🧭 Provider-only Routes */}
         <Route element={<ProtectedRoute allowedRoles={["provider"]} />}>
-            {/* <Route
-              path="/provider-dashboard"
-              element={<ProviderDashboard />}
-            /> */}
-            <Route path="/provider-home" element={<GigsPage />} />
-          </Route>
+          <Route path="/provider-home" element={<GigsPage />} />
+        </Route>
       </Route>
       {/* ❌ Unauthorized */}
       <Route path="/unauthorized" element={<Unauthorized />} />
