@@ -45,13 +45,8 @@ export default function App() {
         {/* <Route path="/provider-register" element={<ProviderRegister />} /> */}
 
         {/* 🧭 Shared Protected Routes for "user" and "admin" */}
-        <Route
-          element={
-            <ProtectedRoute allowedRoles={["user", "admin", "provider"]} />
-          }
-        >
+        <Route element={ <ProtectedRoute allowedRoles={["user", "admin", "provider"]} />}>
           <Route path="/home" element={<Home />} />
-
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
         </Route>

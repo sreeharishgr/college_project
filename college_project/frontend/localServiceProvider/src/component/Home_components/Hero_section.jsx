@@ -203,7 +203,7 @@ function Hero() {
               }}
             />
 
-            <TextField
+            {/* <TextField
               fullWidth
               placeholder="Enter your location"
               inputProps={{ "aria-label": "Location", inputMode: "text" }}
@@ -215,7 +215,7 @@ function Hero() {
                   </InputAdornment>
                 ),
               }}
-            />
+            /> */}
 
             <Button
               variant="contained"

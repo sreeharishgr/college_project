@@ -89,7 +89,7 @@ export default function HomeChoice() {
         <Typography variant="body2">Admin</Typography>
       </Box>
       {/* Hero area */}
-      <Container component="section" aria-labelledby="choice-heading" maxWidth="xxl" sx={{ py: { xs: 6, md: 10 }, textAlign: "center",height:'97dvh',display:'flex',flexDirection:'column',justifyContent:'center' }}>
+      <Container component="section" aria-labelledby="choice-heading" maxWidth="xxl" sx={{ py:{ xs: 10, md: 10 }, textAlign:"center",height:{xs:'160dvh',sm:'97dvh',md:'100dvh',lg:'100dvh'},display:'flex',flexDirection:'column',justifyContent:'center'}}>
         <Stack spacing={1.2} alignItems="center" sx={{ mb: { xs: 3, md: 5 } }}>
           <Typography
             id="choice-heading"
@@ -108,7 +108,7 @@ export default function HomeChoice() {
           </Typography>
         </Stack>
         <Grid container spacing={{ xs: 3,sm:2, md:2,lg:2}}>
-          <Grid sx={{display:'flex',justifyContent:'end'}} size={{ xs:5,sm:10,md:6}}>
+          <Grid sx={{display:'flex',justifyContent:{xs:'center',sm:'center',md:'center',lg:'end'}}} size={{ xs:12,sm:6,md:6,lg:6}}>
             <RoleCard
               color="#4F46E5"
               icon={<PersonOutline />}
@@ -118,7 +118,7 @@ export default function HomeChoice() {
               move='user-login'
             />
           </Grid>
-          <Grid sx={{display:'flex',justifyContent:'start'}} size={{ xs:5,sm:10,md:6}}>
+          <Grid sx={{display:'flex',justifyContent:{xs:'center',sm:'center',md:'center',lg:'start'}}} size={{ xs:12,sm:6,md:6,lg:6}}>
             <RoleCard
               color="#22C55E"
               icon={<HealthAndSafety />}

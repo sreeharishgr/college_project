@@ -261,7 +261,7 @@ function Header({ navItems = defaultNav }) {
           </IconButton>
 
           {/* Brand */}
-          <Typography variant="h6" fontWeight={800} sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" fontWeight={800} sx={{flexGrow:1,fontSize:{xs:'0.3rem',sm:'0.3rem',md:'1.5rem',lg:'1.5rem'}}}>
             Local Service Find
           </Typography>
 
