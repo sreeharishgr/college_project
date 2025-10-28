@@ -406,7 +406,7 @@ const ContactSupport = () => {
               </StyledCard>
 
               {/* Live Chat Card */}
-              <StyledCard>
+              {/* <StyledCard>
                 <CardContent sx={{ textAlign: 'center', p: 3 }}>
                   <IconWrapper>
                     <ChatIcon fontSize="inherit" />
@@ -428,7 +428,7 @@ const ContactSupport = () => {
                     Available during business hours
                   </Typography>
                 </CardContent>
-              </StyledCard>
+              </StyledCard> */}
 
               {/* Location Card */}
               <StyledCard>

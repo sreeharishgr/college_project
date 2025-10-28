@@ -66,7 +66,7 @@ function RoleCard({ color, icon, title, subtitle, cta, move }) {
 export default function HomeChoice() {
   return (
     <Box component="main" id="main" sx={{ bgcolor: "#E9F1FF", minHeight: "98dvh" }}>
-      <Box
+      {/* <Box
         sx={{
           position: "fixed",
           top: { xs: 76, md: 84 },
@@ -87,7 +87,7 @@ export default function HomeChoice() {
           <AdminPanelSettings fontSize="large" />
         </IconButton>
         <Typography variant="body2">Admin</Typography>
-      </Box>
+      </Box> */}
       {/* Hero area */}
       <Container component="section" aria-labelledby="choice-heading" maxWidth="xxl" sx={{ py:{ xs: 10, md: 10 }, textAlign:"center",height:{xs:'160dvh',sm:'97dvh',md:'100dvh',lg:'100dvh'},display:'flex',flexDirection:'column',justifyContent:'center'}}>
         <Stack spacing={1.2} alignItems="center" sx={{ mb: { xs: 3, md: 5 } }}>
